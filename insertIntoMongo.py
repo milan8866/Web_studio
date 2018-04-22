@@ -8,7 +8,6 @@ collectionName = "MarketData"
 
 client = MongoClient()
 db = client.get_database('ExchangeUSD')
-db.drop_collection(collectionName)
 collection = db.get_collection(collectionName)
 collection.create_index([("timestamp",ASCENDING)])
 collection.create_index([("source",ASCENDING)])
@@ -24,7 +23,6 @@ for dirpath, dirnames, files in os.walk(directory):
                 data = pd.read_csv(directory+"/"+file,header=None)
                 data[3] = source
                 data.columns = ["timestamp","price","quantity","source"]
-                dicts = data.to_dict('records')
                 collection.insert_many(dicts)
                 print("Done importing %s!" % file)
             except:
