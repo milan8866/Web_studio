@@ -36,8 +36,6 @@ def GetDataSet(startbar, endbar, db):
     for document in cursor:
         data.append(FlattenBarData(document))
     vec = DictVectorizer()
-    dataSet = vec.fit_transform(data).toarray()
-    columnNames = vec.get_feature_names()
     return pd.DataFrame(dataSet, columns=columnNames)
 
 
@@ -75,9 +73,6 @@ db = client.local
 
 minutesPerDay = 1440
 startBar = DateToBar(datetime.datetime(2013, 1, 1))
-endBar = DateToBar(datetime.datetime(2015, 1, 1))
-days = math.floor((endBar - startBar) / minutesPerDay)
-learningPeriod = 30
 testingPeriod = 8
 evaluationPeriod = 1
 
