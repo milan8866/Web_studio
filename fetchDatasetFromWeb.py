@@ -14,11 +14,7 @@ def UnzipWriteFile(data,filename):
         return None
     try:
         f = gzip.open(filename,'rb')
-        newFilename = filename.split(".gz")[0]
-        outF = open(newFilename,'wb')
-        outF.write(f.read())
         f.close()
-        outF.close()
         os.remove(filename)
         return 1
     except:
